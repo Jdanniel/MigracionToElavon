@@ -16,8 +16,6 @@ namespace MigracionToElavon
     {
 
         private static IConfiguration _iconfiguration;
-        static HttpClient client = new HttpClient();
-
         static void GetAppSettingsFile()
         {
             var builder = new ConfigurationBuilder()
@@ -51,18 +49,17 @@ namespace MigracionToElavon
 
             try
             {
-                response = (await client.PostAsync("https://localhost:44382/api/files/ODT", form));
-                foto.insertDatos(name,noar,idar,"ENVIO EXITOSO");
+                response = (await client.PostAsync("http://sgse.microformas.com.mx:8093/api/files/ODT", form));
                 respuesta = true;
             }
             catch (Exception ex)
             {
-                foto.insertDatos(name, noar, idar, "A OCURRIDO UN ERROR AL ENVIAR EL ARCHIVO: " + ex.ToString());
+                foto.insertDatos(name, noar, idar, "A OCURRIDO UN ERROR INTERNO EN EL PROGRAMA 'MigracionToElavon' AL ENVIAR EL ARCHIVO: " + ex.ToString());
                 Console.WriteLine(ex.Message);
             }
 
             var k = response.Content.ReadAsStringAsync().Result;
-
+            foto.insertDatos(name,noar,idar,k);
             return respuesta;
         }
 
@@ -74,7 +71,7 @@ namespace MigracionToElavon
 
             listaFotos.ForEach(async item =>
             {
-                await SendFiles(item.archivo, "REING-RETIRO51", item.idar);
+                await SendFiles(item.archivo, item.noar, item.idar);
                 Console.WriteLine(item.archivo);
             });
             Console.ReadKey();

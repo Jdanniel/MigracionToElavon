@@ -24,7 +24,7 @@ namespace MigracionToElavon.DAL
             try {
                 using (SqlConnection con = new SqlConnection(_connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SELECT TOP 2 BD_FOTO_AR.ID_AR, " +
+                    SqlCommand cmd = new SqlCommand("SELECT BD_FOTO_AR.ID_AR, " +
                         "BD_AR.NO_AR, BD_ATTACH.SYSTEM_FILENAME " +
                         "FROM BD_FOTO_AR " +
                         "INNER JOIN BD_AR ON BD_AR.ID_AR = BD_FOTO_AR.ID_AR " +
