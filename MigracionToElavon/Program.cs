@@ -68,12 +68,13 @@ namespace MigracionToElavon
             GetAppSettingsFile();
             var foto = new FotoAttachDal(_iconfiguration);
             var listaFotos = foto.GetList();
-
+            /*
             listaFotos.ForEach(async item =>
             {
                 await SendFiles(item.archivo, item.noar, item.idar);
                 Console.WriteLine(item.archivo);
-            });
+            });*/
+            foto.insertDatos("Se ejecuto la aplicacion", "-1", 0, "k");
             Console.ReadKey();
             
         }
